@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Check, Pencil, Plus, RefreshCw, Trash2, X } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 
 type DividendRecord = {
   id: string;
@@ -74,6 +74,12 @@ export default function DividendsPage() {
   }, [records]);
 
   async function fetchRecords() {
+    if (!isSupabaseConfigured) {
+      setMessage("尚未設定 Supabase 環境變數，請在 Vercel 加入 Project URL 與 Publishable key。");
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setMessage(null);
 
@@ -119,6 +125,12 @@ export default function DividendsPage() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!isSupabaseConfigured) {
+      setMessage("尚未設定 Supabase 環境變數，無法儲存股息紀錄。");
+      return;
+    }
+
     setSaving(true);
     setMessage(null);
 
@@ -169,6 +181,11 @@ export default function DividendsPage() {
   }
 
   async function handleDelete(id: string) {
+    if (!isSupabaseConfigured) {
+      setMessage("尚未設定 Supabase 環境變數，無法刪除股息紀錄。");
+      return;
+    }
+
     const confirmed = window.confirm("確定要刪除這筆股息紀錄嗎？");
 
     if (!confirmed) return;

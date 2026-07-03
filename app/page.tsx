@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Check, Pencil, Plus, RefreshCw, Trash2, X } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 
 type TradeAction = "買進" | "賣出";
 
@@ -77,6 +77,12 @@ export default function Home() {
   }, [trades]);
 
   async function fetchTrades() {
+    if (!isSupabaseConfigured) {
+      setMessage("尚未設定 Supabase 環境變數，請在 Vercel 加入 Project URL 與 Publishable key。");
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setMessage(null);
 
@@ -123,6 +129,12 @@ export default function Home() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!isSupabaseConfigured) {
+      setMessage("尚未設定 Supabase 環境變數，無法儲存交易紀錄。");
+      return;
+    }
+
     setSaving(true);
     setMessage(null);
 
@@ -168,6 +180,11 @@ export default function Home() {
   }
 
   async function handleDelete(id: string) {
+    if (!isSupabaseConfigured) {
+      setMessage("尚未設定 Supabase 環境變數，無法刪除交易紀錄。");
+      return;
+    }
+
     const confirmed = window.confirm("確定要刪除這筆交易紀錄嗎？");
 
     if (!confirmed) return;
