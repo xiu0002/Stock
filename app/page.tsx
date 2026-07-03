@@ -53,8 +53,14 @@ function toNumber(value: string) {
   return Number(value || 0);
 }
 
-function totalAmount(trade: Pick<Trade, "shares" | "price" | "fee" | "tax">) {
-  return trade.shares * trade.price + trade.fee + trade.tax;
+function totalAmount(trade: Pick<Trade, "action" | "shares" | "price" | "fee" | "tax">) {
+  const grossAmount = trade.shares * trade.price;
+
+  if (trade.action === "賣出") {
+    return grossAmount - trade.fee - trade.tax;
+  }
+
+  return grossAmount + trade.fee + trade.tax;
 }
 
 export default function Home() {
@@ -65,16 +71,30 @@ export default function Home() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
-  const portfolioSummary = useMemo(() => {
+  const cashFlowSummary = useMemo(() => {
     return trades.reduce(
       (summary, trade) => {
-        summary.count += 1;
-        summary.total += totalAmount(trade);
+        const amount = totalAmount(trade);
+
+        if (trade.action === "買進") {
+          summary.totalInvested += amount;
+        } else {
+          summary.totalRecovered += amount;
+        }
+
+        summary.netCashFlow = summary.totalRecovered - summary.totalInvested;
         return summary;
       },
-      { count: 0, total: 0 },
+      { totalInvested: 0, totalRecovered: 0, netCashFlow: 0 },
     );
   }, [trades]);
+
+  const netCashFlowClass =
+    cashFlowSummary.netCashFlow > 0
+      ? "text-[#74d3a2]"
+      : cashFlowSummary.netCashFlow < 0
+        ? "text-[#f08a98]"
+        : "text-[#f7f3e8]";
 
   async function fetchTrades() {
     if (!isSupabaseConfigured) {
@@ -211,17 +231,23 @@ export default function Home() {
               股票交易紀錄系統
             </h1>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:min-w-80">
+          <div className="grid grid-cols-1 gap-3 sm:min-w-[540px] sm:grid-cols-3">
             <div className="border border-[#2a2d34] bg-[#101216] px-4 py-3 shadow-[0_14px_45px_rgba(0,0,0,0.28)]">
-              <p className="text-xs text-[#8b93a1]">紀錄筆數</p>
+              <p className="text-xs text-[#8b93a1]">總投入資金</p>
               <p className="mt-1 text-2xl font-semibold text-[#f7f3e8]">
-                {portfolioSummary.count}
+                {numberFormatter.format(cashFlowSummary.totalInvested)}
               </p>
             </div>
             <div className="border border-[#2a2d34] bg-[#101216] px-4 py-3 shadow-[0_14px_45px_rgba(0,0,0,0.28)]">
-              <p className="text-xs text-[#8b93a1]">總額加總</p>
+              <p className="text-xs text-[#8b93a1]">總收回資金</p>
               <p className="mt-1 text-2xl font-semibold text-[#f7f3e8]">
-                {numberFormatter.format(portfolioSummary.total)}
+                {numberFormatter.format(cashFlowSummary.totalRecovered)}
+              </p>
+            </div>
+            <div className="border border-[#2a2d34] bg-[#101216] px-4 py-3 shadow-[0_14px_45px_rgba(0,0,0,0.28)]">
+              <p className="text-xs text-[#8b93a1]">淨現金流</p>
+              <p className={`mt-1 text-2xl font-semibold ${netCashFlowClass}`}>
+                {numberFormatter.format(cashFlowSummary.netCashFlow)}
               </p>
             </div>
           </div>
@@ -342,6 +368,7 @@ export default function Home() {
                 <span className="font-semibold text-[#f7f3e8]">
                   {numberFormatter.format(
                     totalAmount({
+                      action: form.action,
                       shares: toNumber(form.shares),
                       price: toNumber(form.price),
                       fee: toNumber(form.fee),
