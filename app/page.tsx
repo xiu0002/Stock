@@ -222,31 +222,31 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-[#050608] px-4 py-6 text-[#f5f5f0] sm:px-6 lg:px-10">
+    <main className="min-h-screen bg-[#050608] px-3 py-5 text-[#f5f5f0] sm:px-6 sm:py-6 lg:px-10">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
         <header className="flex flex-col gap-4 border-b border-[#25272d] pb-6 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-sm font-medium text-[#9ca3af]">Stock Trade Journal</p>
-            <h1 className="mt-1 text-3xl font-semibold tracking-normal text-[#f7f3e8]">
+            <h1 className="mt-1 text-2xl font-semibold tracking-normal text-[#f7f3e8] sm:text-3xl">
               股票交易紀錄系統
             </h1>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:min-w-[540px] sm:grid-cols-3">
             <div className="border border-[#2a2d34] bg-[#101216] px-4 py-3 shadow-[0_14px_45px_rgba(0,0,0,0.28)]">
               <p className="text-xs text-[#8b93a1]">總投入資金</p>
-              <p className="mt-1 text-2xl font-semibold text-[#f7f3e8]">
+              <p className="mt-1 text-xl font-semibold text-[#f7f3e8] sm:text-2xl">
                 {numberFormatter.format(cashFlowSummary.totalInvested)}
               </p>
             </div>
             <div className="border border-[#2a2d34] bg-[#101216] px-4 py-3 shadow-[0_14px_45px_rgba(0,0,0,0.28)]">
               <p className="text-xs text-[#8b93a1]">總收回資金</p>
-              <p className="mt-1 text-2xl font-semibold text-[#f7f3e8]">
+              <p className="mt-1 text-xl font-semibold text-[#f7f3e8] sm:text-2xl">
                 {numberFormatter.format(cashFlowSummary.totalRecovered)}
               </p>
             </div>
             <div className="border border-[#2a2d34] bg-[#101216] px-4 py-3 shadow-[0_14px_45px_rgba(0,0,0,0.28)]">
               <p className="text-xs text-[#8b93a1]">淨現金流</p>
-              <p className={`mt-1 text-2xl font-semibold ${netCashFlowClass}`}>
+              <p className={`mt-1 text-xl font-semibold sm:text-2xl ${netCashFlowClass}`}>
                 {numberFormatter.format(cashFlowSummary.netCashFlow)}
               </p>
             </div>
@@ -267,7 +267,7 @@ export default function Home() {
                   type="button"
                   onClick={resetForm}
                   title="取消編輯"
-                  className="inline-flex h-9 w-9 items-center justify-center border border-[#333741] text-[#b8bec8] transition hover:border-[#f7f3e8] hover:text-[#f7f3e8]"
+                  className="inline-flex h-10 w-10 items-center justify-center border border-[#333741] text-[#b8bec8] transition hover:border-[#f7f3e8] hover:text-[#f7f3e8]"
                 >
                   <X size={18} />
                 </button>
@@ -282,7 +282,7 @@ export default function Home() {
                   value={form.trade_date}
                   onChange={(event) => updateField("trade_date", event.target.value)}
                   required
-                  className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                  className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                 />
               </label>
 
@@ -293,7 +293,7 @@ export default function Home() {
                   value={form.ticker}
                   onChange={(event) => updateField("ticker", event.target.value)}
                   required
-                  className="h-10 border border-[#333741] bg-[#07080b] px-3 uppercase text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                  className="h-11 border border-[#333741] bg-[#07080b] px-3 uppercase text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                 />
               </label>
 
@@ -302,14 +302,14 @@ export default function Home() {
                 <select
                   value={form.action}
                   onChange={(event) => updateField("action", event.target.value as TradeAction)}
-                  className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                  className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                 >
                   <option value="買進">買進</option>
                   <option value="賣出">賣出</option>
                 </select>
               </label>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <label className="grid gap-1.5 text-sm font-medium text-[#d6d9df]">
                   股數
                   <input
@@ -319,7 +319,7 @@ export default function Home() {
                     value={form.shares}
                     onChange={(event) => updateField("shares", event.target.value)}
                     required
-                    className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                    className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                   />
                 </label>
 
@@ -332,12 +332,12 @@ export default function Home() {
                     value={form.price}
                     onChange={(event) => updateField("price", event.target.value)}
                     required
-                    className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                    className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                   />
                 </label>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <label className="grid gap-1.5 text-sm font-medium text-[#d6d9df]">
                   手續費
                   <input
@@ -346,7 +346,7 @@ export default function Home() {
                     step="0.000001"
                     value={form.fee}
                     onChange={(event) => updateField("fee", event.target.value)}
-                    className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                    className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                   />
                 </label>
 
@@ -358,7 +358,7 @@ export default function Home() {
                     step="0.000001"
                     value={form.tax}
                     onChange={(event) => updateField("tax", event.target.value)}
-                    className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                    className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                   />
                 </label>
               </div>
@@ -412,8 +412,8 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[920px] border-collapse text-left text-sm">
+            <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+              <table className="w-full min-w-[920px] border-collapse text-left text-[13px] sm:text-sm">
                 <thead className="bg-[#111419] text-xs uppercase text-[#8b93a1]">
                   <tr>
                     <th className="px-4 py-3 font-semibold">交易日期</th>
@@ -480,7 +480,7 @@ export default function Home() {
                               type="button"
                               onClick={() => handleEdit(trade)}
                               title="編輯/修改"
-                              className="inline-flex h-9 items-center justify-center gap-1 border border-[#333741] px-2.5 text-sm text-[#d6d9df] transition hover:border-[#f7f3e8] hover:text-[#f7f3e8]"
+                              className="inline-flex h-10 items-center justify-center gap-1 border border-[#333741] px-3 text-sm text-[#d6d9df] transition hover:border-[#f7f3e8] hover:text-[#f7f3e8]"
                             >
                               <Pencil size={15} />
                               編輯
@@ -489,7 +489,7 @@ export default function Home() {
                               type="button"
                               onClick={() => handleDelete(trade.id)}
                               title="刪除"
-                              className="inline-flex h-9 items-center justify-center gap-1 border border-[#6f2b35] px-2.5 text-sm text-[#f08a98] transition hover:border-[#ffb4be] hover:text-[#ffb4be]"
+                              className="inline-flex h-10 items-center justify-center gap-1 border border-[#6f2b35] px-3 text-sm text-[#f08a98] transition hover:border-[#ffb4be] hover:text-[#ffb4be]"
                             >
                               <Trash2 size={15} />
                               刪除

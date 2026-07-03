@@ -204,21 +204,21 @@ export default function DividendsPage() {
   const previewGross = toNumber(form.shares_owned) * toNumber(form.dividend_per_share);
 
   return (
-    <main className="min-h-screen bg-[#050608] px-4 py-6 text-[#f5f5f0] sm:px-6 lg:px-10">
+    <main className="min-h-screen bg-[#050608] px-3 py-5 text-[#f5f5f0] sm:px-6 sm:py-6 lg:px-10">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6">
         <header className="flex flex-col gap-4 border-b border-[#25272d] pb-6 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-sm font-medium text-[#9ca3af]">Dividend Ledger</p>
-            <h1 className="mt-1 text-3xl font-semibold text-[#f7f3e8]">股息紀錄</h1>
+            <h1 className="mt-1 text-2xl font-semibold text-[#f7f3e8] sm:text-3xl">股息紀錄</h1>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:min-w-[440px]">
+          <div className="grid grid-cols-1 gap-3 sm:min-w-[440px] sm:grid-cols-2">
             <div className="border border-[#2a2d34] bg-[#101216] px-4 py-3">
               <p className="text-xs text-[#8b93a1]">筆數</p>
-              <p className="mt-1 text-2xl font-semibold">{summary.count}</p>
+              <p className="mt-1 text-xl font-semibold sm:text-2xl">{summary.count}</p>
             </div>
             <div className="border border-[#2a2d34] bg-[#101216] px-4 py-3">
               <p className="text-xs text-[#8b93a1]">實領加總</p>
-              <p className="mt-1 text-2xl font-semibold">{moneyFormatter.format(summary.net)}</p>
+              <p className="mt-1 text-xl font-semibold sm:text-2xl">{moneyFormatter.format(summary.net)}</p>
             </div>
           </div>
         </header>
@@ -237,7 +237,7 @@ export default function DividendsPage() {
                   type="button"
                   onClick={resetForm}
                   title="取消編輯"
-                  className="inline-flex h-9 w-9 items-center justify-center border border-[#333741] text-[#b8bec8] transition hover:border-[#f7f3e8] hover:text-[#f7f3e8]"
+                  className="inline-flex h-10 w-10 items-center justify-center border border-[#333741] text-[#b8bec8] transition hover:border-[#f7f3e8] hover:text-[#f7f3e8]"
                 >
                   <X size={18} />
                 </button>
@@ -252,7 +252,7 @@ export default function DividendsPage() {
                   value={form.ex_dividend_date}
                   onChange={(event) => updateField("ex_dividend_date", event.target.value)}
                   required
-                  className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                  className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                 />
               </label>
               <label className="grid gap-1.5 text-sm font-medium text-[#d6d9df]">
@@ -262,10 +262,10 @@ export default function DividendsPage() {
                   value={form.ticker}
                   onChange={(event) => updateField("ticker", event.target.value)}
                   required
-                  className="h-10 border border-[#333741] bg-[#07080b] px-3 uppercase text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                  className="h-11 border border-[#333741] bg-[#07080b] px-3 uppercase text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                 />
               </label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <label className="grid gap-1.5 text-sm font-medium text-[#d6d9df]">
                   持有股數
                   <input
@@ -275,7 +275,7 @@ export default function DividendsPage() {
                     value={form.shares_owned}
                     onChange={(event) => updateField("shares_owned", event.target.value)}
                     required
-                    className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                    className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                   />
                 </label>
                 <label className="grid gap-1.5 text-sm font-medium text-[#d6d9df]">
@@ -287,11 +287,11 @@ export default function DividendsPage() {
                     value={form.dividend_per_share}
                     onChange={(event) => updateField("dividend_per_share", event.target.value)}
                     required
-                    className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                    className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                   />
                 </label>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <label className="grid gap-1.5 text-sm font-medium text-[#d6d9df]">
                   預扣稅金
                   <input
@@ -300,7 +300,7 @@ export default function DividendsPage() {
                     step="0.000001"
                     value={form.tax_withheld}
                     onChange={(event) => updateField("tax_withheld", event.target.value)}
-                    className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                    className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                   />
                 </label>
                 <label className="grid gap-1.5 text-sm font-medium text-[#d6d9df]">
@@ -312,7 +312,7 @@ export default function DividendsPage() {
                     value={form.net_amount}
                     onChange={(event) => updateField("net_amount", event.target.value)}
                     required
-                    className="h-10 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
+                    className="h-11 border border-[#333741] bg-[#07080b] px-3 text-[#f7f3e8] outline-none transition focus:border-[#c8aa6e] focus:ring-2 focus:ring-[#c8aa6e]/25"
                   />
                 </label>
               </div>
@@ -355,8 +355,8 @@ export default function DividendsPage() {
                 重新整理
               </button>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[980px] border-collapse text-left text-sm">
+            <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+              <table className="w-full min-w-[980px] border-collapse text-left text-[13px] sm:text-sm">
                 <thead className="bg-[#111419] text-xs uppercase text-[#8b93a1]">
                   <tr>
                     <th className="px-4 py-3 font-semibold">除息日</th>
@@ -411,7 +411,7 @@ export default function DividendsPage() {
                               type="button"
                               onClick={() => handleEdit(record)}
                               title="編輯/修改"
-                              className="inline-flex h-9 items-center justify-center gap-1 border border-[#333741] px-2.5 text-sm text-[#d6d9df] transition hover:border-[#f7f3e8] hover:text-[#f7f3e8]"
+                              className="inline-flex h-10 items-center justify-center gap-1 border border-[#333741] px-3 text-sm text-[#d6d9df] transition hover:border-[#f7f3e8] hover:text-[#f7f3e8]"
                             >
                               <Pencil size={15} />
                               編輯
@@ -420,7 +420,7 @@ export default function DividendsPage() {
                               type="button"
                               onClick={() => handleDelete(record.id)}
                               title="刪除"
-                              className="inline-flex h-9 items-center justify-center gap-1 border border-[#6f2b35] px-2.5 text-sm text-[#f08a98] transition hover:border-[#ffb4be] hover:text-[#ffb4be]"
+                              className="inline-flex h-10 items-center justify-center gap-1 border border-[#6f2b35] px-3 text-sm text-[#f08a98] transition hover:border-[#ffb4be] hover:text-[#ffb4be]"
                             >
                               <Trash2 size={15} />
                               刪除
